@@ -7,7 +7,7 @@ import { useUserStore } from '@/stores/userStore';
 
 export default function Login() {
   const navigate = useNavigate();
-  const { login } = useUserStore();
+  const { login, isLoading } = useUserStore();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPw, setShowPw] = useState(false);
@@ -17,17 +17,30 @@ export default function Login() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email || !password) { setError('请填写所有字段'); return; }
+    if (password.length < 6) { setError('密码至少6位'); return; }
     setLoading(true);
     setError('');
     try {
-      await login(email, password);
-      navigate('/');
+      const success = await login(email, password);
+      if (success) {
+        navigate('/');
+      } else {
+        setError('邮箱或密码错误，请检查后重试');
+      }
     } catch {
-      setError('登录失败，请重试');
+      setError('登录失败，请稍后重试');
     } finally {
       setLoading(false);
     }
   };
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-[#F8F6F1] flex items-center justify-center">
+        <div className="w-8 h-8 border-2 border-[#E8953C] border-t-transparent rounded-full animate-spin" />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#F8F6F1] flex flex-col items-center justify-center p-4 relative">

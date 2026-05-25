@@ -7,7 +7,7 @@ import { useUserStore } from '@/stores/userStore';
 
 export default function Register() {
   const navigate = useNavigate();
-  const { register } = useUserStore();
+  const { register, isLoading } = useUserStore();
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -22,14 +22,26 @@ export default function Register() {
     setLoading(true);
     setError('');
     try {
-      await register(username, email, password);
-      navigate('/');
+      const success = await register(username, email, password);
+      if (success) {
+        navigate('/');
+      } else {
+        setError('注册失败，该邮箱可能已被使用');
+      }
     } catch {
-      setError('注册失败，请重试');
+      setError('注册失败，请稍后重试');
     } finally {
       setLoading(false);
     }
   };
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-[#F8F6F1] flex items-center justify-center">
+        <div className="w-8 h-8 border-2 border-[#E8953C] border-t-transparent rounded-full animate-spin" />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#F8F6F1] flex flex-col items-center justify-center p-4 relative">
