@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MECHA BATTLE - 像素机甲对战</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="game-wrapper">
+    <canvas id="gameCanvas" width="800" height="500"></canvas>
+
+    <div id="menu-overlay" class="overlay">
+      <h1 class="game-title">MECHA BATTLE</h1>
+      <p class="sub-title">像素机甲对战</p>
+      <button id="startBtn" class="pixel-btn">开始游戏</button>
+      <div class="controls-info">
+        <div class="controls-col">
+          <h3>玩家 1</h3>
+          <p>W/A/S/D - 移动/防御</p>
+          <p>空格 - 近战攻击</p>
+          <p>F - 远程能量弹</p>
+          <p>E - 冲刺</p>
+        </div>
+        <div class="controls-divider"></div>
+        <div class="controls-col">
+          <h3>玩家 2</h3>
+          <p>↑/←/↓/→ - 移动/防御</p>
+          <p>Enter - 近战攻击</p>
+          <p>/ - 远程能量弹</p>
+          <p>. - 冲刺</p>
+        </div>
+      </div>
+    </div>
+
+    <div id="result-overlay" class="overlay hidden">
+      <h2 id="winnerText" class="winner-text">玩家 1 获胜！</h2>
+      <button id="restartBtn" class="pixel-btn">再来一局</button>
+      <button id="menuBtn" class="pixel-btn pixel-btn-sm">返回主菜单</button>
+    </div>
+
+    <div id="hud">
+      <div class="hud-player hud-left">
+        <span class="hud-name" id="p1Name">P1 红色机甲</span>
+        <div class="health-bar-bg">
+          <div class="health-bar" id="p1Health"></div>
+        </div>
+        <div class="energy-bar-bg">
+          <div class="energy-bar" id="p1Energy"></div>
+        </div>
+      </div>
+      <div class="hud-center">
+        <span class="hud-vs">VS</span>
+      </div>
+      <div class="hud-player hud-right">
+        <span class="hud-name" id="p2Name">P2 蓝色机甲</span>
+        <div class="health-bar-bg">
+          <div class="health-bar" id="p2Health"></div>
+        </div>
+        <div class="energy-bar-bg">
+          <div class="energy-bar" id="p2Energy"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/input.js"></script>
+  <script src="js/renderer.js"></script>
+  <script src="js/mecha.js"></script>
+  <script src="js/projectile.js"></script>
+  <script src="js/combat.js"></script>
+  <script src="js/scene.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
